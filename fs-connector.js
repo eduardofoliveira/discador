@@ -24,7 +24,7 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
     );
   })
 
-  em.on('showcalls', () => {
+  em.on('showcalls', res => {
     conn.api('show calls', result => {
       let [ headers, ...linhas ] = result.body.split('\n')
       headers = headers.split(',')
@@ -46,7 +46,7 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
 
       linhas = linhas.filter(item => item.uuid)
 
-      em.emit('showcalls-result', linhas)
+      res.json(linhas)
     })
   })
 
