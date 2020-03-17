@@ -26,7 +26,9 @@ app.post('/change/from/:from', (req, res) => {
 
 app.get('/showcalls', (req, res) => {
   em.emit('showcalls')
-  res.send()
+  em.on('showcalls-result', linhas => {
+    res.json(linhas)
+  })
 })
 
 app.listen(port, () => {
