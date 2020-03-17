@@ -12,7 +12,7 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
         console.log(result)
       }
     );
-  }, 5000)
+  }, 10000)
 
   setTimeout(() => {
     conn.api(
@@ -21,5 +21,5 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
         console.log(result)
       }
     );
-  }, 10000)
+  }, 20000)
 })
