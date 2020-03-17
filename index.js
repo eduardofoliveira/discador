@@ -31,7 +31,7 @@ app.post('/kill/:callid', (req, res) => {
 })
 
 app.post('/killall', (req, res) => {
-  em.emit('killall', callid)
+  em.emit('killall')
   res.send()
 })
 
