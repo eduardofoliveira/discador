@@ -26,10 +26,9 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
 
   em.on('showcalls', () => {
     conn.api('show calls', result => {
-      const [ headers, ...linhas, total ] = result.body.split('\n')
+      const [ headers, ...linhas ] = result.body.split('\n')
       console.log(headers.split(','))
       console.log(linhas)
-      console.log(total)
     })
   })
 
