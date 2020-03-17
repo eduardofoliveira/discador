@@ -36,8 +36,6 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
         const uuid = linhas[i];
         conn.api(`uuid_kill ${uuid}`, result => {})
       }
-
-      res.send()
     })
   })
 
