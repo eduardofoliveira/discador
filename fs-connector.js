@@ -26,8 +26,24 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
 
   em.on('showcalls', () => {
     conn.api('show calls', result => {
-      const [ headers, ...linhas ] = result.body.split('\n')
-      console.log(headers.split(','))
+      let [ headers, ...linhas ] = result.body.split('\n')
+      headers = headers.split(',')
+
+      for (let i = 0; i < linhas.length; i++) {
+        let registro = linhas[i];
+        registro = registro.split(',')
+
+        let obj = {}
+
+        if(registro.length === headers.length){
+          for (let a = 0; a < registro.length; a++) {
+            obj[headers[a]] = registro[a]
+          }
+        }
+
+        linhas[i] =  obj
+      }
+
       console.log(linhas)
     })
   })
