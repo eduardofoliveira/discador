@@ -44,6 +44,8 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
         linhas[i] =  obj
       }
 
+      linhas = linhas.filter(item => item.uuid)
+
       console.log(linhas)
     })
   })
