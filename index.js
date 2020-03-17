@@ -30,6 +30,11 @@ app.post('/kill/:callid', (req, res) => {
   res.send()
 })
 
+app.post('/killall', (req, res) => {
+  em.emit('killall', callid)
+  res.send()
+})
+
 app.get('/showcalls', (req, res) => {
   em.emit('showcalls', res)
 })

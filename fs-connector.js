@@ -7,9 +7,41 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
 
   let from = '5511961197559'
 
+  em.on('killall', () => {
+    conn.api('show calls', result => {
+      let [ headers, ...linhas ] = result.body.split('\n')
+      headers = headers.split(',')
+
+      for (let i = 0; i < linhas.length; i++) {
+        let registro = linhas[i];
+        registro = registro.split(',')
+
+        let obj = {}
+
+        if(registro.length === headers.length){
+          for (let a = 0; a < registro.length; a++) {
+            obj[headers[a]] = registro[a]
+          }
+        }
+
+        linhas[i] =  obj
+      }
+
+      linhas = linhas.filter(item => item.uuid)
+      linhas = linhas.map(item => item.uuid)
+
+      for (let i = 0; i < linhas.length; i++) {
+        const uuid = linhas[i];
+        conn.api(`uuid_kill ${uuid}`, result => {})
+      }
+
+      res.send()
+    })
+  })
+
   em.on('kill', callid => {
     conn.api(`uuid_kill ${callid}`, result => {
-      
+
     })
   })
 
