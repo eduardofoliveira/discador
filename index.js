@@ -24,6 +24,12 @@ app.post('/change/from/:from', (req, res) => {
   res.send()
 })
 
+app.post('/kill/:callid', (req, res) => {
+  const { callid } = req.params;
+  em.emit('kill', callid)
+  res.send()
+})
+
 app.get('/showcalls', (req, res) => {
   em.emit('showcalls', res)
 })
