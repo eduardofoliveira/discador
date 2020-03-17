@@ -8,7 +8,9 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
   let from = '5511961197559'
 
   em.on('kill', callid => {
-    conn.api(`uuid_kill ${callid}`, result)
+    conn.api(`uuid_kill ${callid}`, result => {
+      
+    })
   })
 
   em.on('originar', to => {
