@@ -60,7 +60,7 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
         }
       }
     );
-    from = from++
+    from = (parseInt(from) + 1).toString()
   })
 
   em.on('showcalls', res => {
