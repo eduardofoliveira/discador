@@ -5,7 +5,7 @@ const em = new EventEmitter;
 conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
   conn.events("json", "all");
 
-  let from = '5511961197559'
+  let from = '551120000000'
 
   em.on('killall', () => {
     conn.api('show calls', result => {
@@ -60,6 +60,7 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
         }
       }
     );
+    from = from++
   })
 
   em.on('showcalls', res => {
