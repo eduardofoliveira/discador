@@ -18,6 +18,20 @@ app.post('/originate/:to', (req, res) => {
   res.send()
 })
 
+app.post('/originate/:to/:quantidade', async (req, res) => {
+  const { to, quantidade } = req.params;
+  res.send()
+
+  for (let i = 0; i < quantidade; i++) {
+    await new Promise((resolve, reject) => {
+      em.emit('originar', to)
+      setTimeout(() => {
+        resolve()
+      }, 1000)
+    })
+  }
+})
+
 app.post('/change/from/:from', (req, res) => {
   const { from } = req.params;
   em.emit('alterar_from', from)
