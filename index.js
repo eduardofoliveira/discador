@@ -11,11 +11,11 @@ function random(low, high) {
   return parseInt(Math.random() * (high - low) + low)
 }
 
-const executar = async (to, intervalo) => {
+const executar = async (to, min, max) => {
   while(gerar){
     await new Promise((resolve, reject) => {
       setTimeout(() => {
-        let dur = random(15, intervalo)
+        let dur = random(min, max)
         em.emit('originar-limit', to, dur)
         resolve()
       }, tempoOriginar)
@@ -23,12 +23,18 @@ const executar = async (to, intervalo) => {
   }
 }
 
-app.post('/gerar/:to/:tempo', (req, res) => {
-  let { to, tempo } = req.params;
+app.post('/gerar/intervalo/:tempo', (req, res) => {
+  let { tempo } = req.params;
+  tempoOriginar = tempo * 1000
+  res.send(`Intervalo entre a geração de chamadas: ${tempoOriginar/1000}`)
+})
+
+app.post('/gerar/:to/:min/:max', (req, res) => {
+  let { to, min, max } = req.params;
   res.send()
 
   gerar = true
-  executar(to, tempo)
+  executar(to, min, max)
 })
 
 app.post('/gerar/parar', (req, res) => {
