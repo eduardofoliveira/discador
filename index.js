@@ -5,7 +5,7 @@ const port = 81
 
 const chamadas = {}
 let gerar = false
-let tempo = 20
+let tempoOriginar = 20
 
 function random(low, high) {
   return parseInt(Math.random() * (high - low) + low)
@@ -18,7 +18,7 @@ const executar = async (to, intervalo) => {
         let dur = random(15, intervalo)
         em.emit('originar-limit', to, dur)
         resolve()
-      }, tempo)
+      }, tempoOriginar)
     })
   }
 }
@@ -27,7 +27,6 @@ app.post('/gerar/:to/:tempo', (req, res) => {
   let { to, tempo } = req.params;
   res.send()
 
-  tempo = tempo * 1000
   gerar = true
   executar(to, tempo)
 })
