@@ -5,7 +5,7 @@ const port = 81
 
 const chamadas = {}
 let gerar = false
-let tempoOriginar = 20
+let tempoOriginar = 20000
 
 function random(low, high) {
   return parseInt(Math.random() * (high - low) + low)
