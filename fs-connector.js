@@ -75,7 +75,10 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
             from,
             callid
           })
-          conn.api(`sched_hangup +${time} ${callid} alotted_timeout`, ressilt2 => {})
+          setTimeout(() => {
+            conn.api(`sched_hangup +${time} ${callid} alotted_timeout`, ressilt2 => {})
+            console.log(`sched_hangup +${time} ${callid} alotted_timeout`)
+          }, 15000)
         }
       }
     );

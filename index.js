@@ -5,7 +5,7 @@ const port = 81
 
 const chamadas = {}
 let gerar = false
-let tempo = 20000
+let tempo = 20
 
 function random(low, high) {
   return parseInt(Math.random() * (high - low) + low)
@@ -15,7 +15,8 @@ const executar = async (to, intervalo) => {
   while(gerar){
     await new Promise((resolve, reject) => {
       setTimeout(() => {
-        em.emit('originar-limit', to, random(15, intervalo))
+        let dur = random(15, intervalo)
+        em.emit('originar-limit', to, dur)
         resolve()
       }, tempo)
     })
