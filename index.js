@@ -4,23 +4,19 @@ const em = require('./fs-connector')
 const port = 81
 
 const chamadas = {}
-let gerar = false
 let tempoOriginar = 20000
+let lista = []
 
 function random(low, high) {
   return parseInt(Math.random() * (high - low) + low)
 }
 
 const executar = async (to, min, max) => {
-  while(gerar){
-    await new Promise((resolve, reject) => {
-      setTimeout(() => {
-        let dur = random(min, max)
-        em.emit('originar-limit', to, dur)
-        resolve()
-      }, tempoOriginar)
-    })
-  }
+  let intervalo = setInterval(() => {
+    let dur = random(min, max)
+    em.emit('originar-limit', to, dur)
+  }, tempoOriginar)
+  lista.push(intervalo)
 }
 
 app.post('/gerar/intervalo/:tempo', (req, res) => {
@@ -33,12 +29,15 @@ app.post('/gerar/:to/:min/:max', (req, res) => {
   let { to, min, max } = req.params;
   res.send()
 
-  gerar = true
   executar(to, parseInt(min), parseInt(max))
 })
 
 app.post('/gerar/parar', (req, res) => {
-  gerar = false
+  for (let i = 0; i < lista.length; i++) {
+    const item = lista[i];
+    clearInterval(item)
+  }
+  lista = []
   res.send()
 })
 
