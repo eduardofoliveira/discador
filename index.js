@@ -4,6 +4,37 @@ const em = require('./fs-connector')
 const port = 81
 
 const chamadas = {}
+let gerar = false
+let tempo = 20000
+
+function random(low, high) {
+  return parseInt(Math.random() * (high - low) + low)
+}
+
+const executar = async (to, intervalo) => {
+  while(gerar){
+    await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        em.emit('originar-limit', to, random(15, intervalo))
+        resolve()
+      }, tempo)
+    })
+  }
+}
+
+app.post('/gerar/:to/:tempo', (req, res) => {
+  let { to, tempo } = req.params;
+  res.send()
+
+  tempo = tempo * 1000
+  gerar = true
+  executar(to, tempo)
+})
+
+app.post('/gerar/parar', (req, res) => {
+  gerar = false
+  res.send()
+})
 
 em.on('OK', chamada => {
   chamadas[chamada.callid] = {
