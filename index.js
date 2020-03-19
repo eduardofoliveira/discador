@@ -34,7 +34,7 @@ app.post('/gerar/:to/:min/:max', (req, res) => {
   res.send()
 
   gerar = true
-  executar(to, min, max)
+  executar(to, parseInt(min), parseInt(max))
 })
 
 app.post('/gerar/parar', (req, res) => {
