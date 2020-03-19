@@ -65,7 +65,7 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
 
   em.on('originar-limit', (to, time) => {
     conn.api(
-      `originate {execute_on_answer=sched_hangup +${time} alloted_timeout,absolute_codec_string=^^:PCMU:PCMA,origination_caller_id_number=${from},origination_caller_id_name=${from},sip_contact_user=${from},bridge_generate_comfort_noise=true}sofia/gateway/ASTPP/${to}@54.233.223.179 35880115 XML discador`,
+      `originate {absolute_codec_string=^^:PCMU:PCMA,origination_caller_id_number=${from},origination_caller_id_name=${from},sip_contact_user=${from},bridge_generate_comfort_noise=true}sofia/gateway/ASTPP/${to}@54.233.223.179 35880115 XML discador`,
       result => {
         let [status, callid] = result.body.split(' ')
         callid = callid.replace('\n', '')
@@ -75,6 +75,7 @@ conn = new esl.Connection("127.0.0.1", 8021, "ClueCon", function() {
             from,
             callid
           })
+          conn.api(`sched_hangup +${time} ${callid} alotted_timeout`, ressilt2 => {})
         }
       }
     );
